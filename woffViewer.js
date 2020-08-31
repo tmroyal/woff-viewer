@@ -1,11 +1,13 @@
 (function WoffViewer(){
   var dropArea = document.getElementById("dropArea");
   var reader = new FileReader();
-
-  console.log(dropArea);
+  var font;
 
   reader.addEventListener("load", (f)=>{
-    console.log(reader.result);
+    font = new FontFace("loadedFont", 'url('+reader.result+')');
+    font.load().then(()=>{
+      document.fonts.add(font);
+    });
   });
 
   dropArea.addEventListener("dragover", (e)=>{
@@ -20,10 +22,8 @@
       if (e.dataTransfer.items[0].kind === 'file') {
         var file = e.dataTransfer.items[0].getAsFile();
         reader.readAsDataURL(file);
-        console.log(file);
       }
     } else {
-        console.log(e.dataTransfer.files[0]);
         reader.readAsDataURL(e.dataTransfer.files[0]);
     }
   }, false);

@@ -8,6 +8,10 @@ main {
   width: 100%;
 }
 
+#textDisplay {
+  font-family: loadedFont, Arial, sans-serif;
+}
+
 #dropArea {
   display: block;
   width: 50%;
