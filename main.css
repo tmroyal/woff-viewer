@@ -8,8 +8,36 @@ main {
   width: 100%;
 }
 
-#textDisplay {
-  font-family: loadedFont, Arial, sans-serif;
+.glyphDisplayBox {
+  border: 1px solid black;
+  display: inline-block;
+  padding: 2em;
+  width: 10%;
+  min-height: 100px;
+  margin: 0.5em;
+}
+
+.glyphDisplay {
+  font-family: loadedFont, sans-serif;
+  font-size: 32pt;
+}
+
+.arialGlyphDisplay {
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+  color: grey;
+}
+
+.codeDisplay {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  text-decoration: underline;
+  color: slategrey;
+
+}
+
+#glyphTemplate {
+  display: none;
 }
 
 #dropArea {

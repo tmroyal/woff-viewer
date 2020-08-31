@@ -7,6 +7,8 @@
     font = new FontFace("loadedFont", 'url('+reader.result+')');
     font.load().then(()=>{
       document.fonts.add(font);
+      clearGlyphContainer();
+      populateGlyphs();
     });
   });
 
@@ -28,4 +30,39 @@
     }
   }, false);
 
+  var gc = document.getElementById("glyphContainer");
+
+  function clearGlyphContainer(){
+
+    while(gc.firstChild){
+      gc.removeChild(gc.firstChild);
+    }
+  }
+
+  var el = document.getElementById("glyphTemplate");
+
+  function populateGlyphs(){
+    for (let i = 32; i < 256; i++){
+      var glyphComponent = el.cloneNode(true);
+      var text = document.createTextNode(String.fromCodePoint(i));
+      glyphComponent.id = "";
+
+      var glyphDisplay = glyphComponent.getElementsByClassName("glyphDisplay")[0];
+      glyphDisplay.appendChild(text);
+
+      var aGlyphDisplay = glyphComponent.getElementsByClassName("arialGlyphDisplay")[0];
+      aGlyphDisplay.appendChild(text.cloneNode());
+
+      var codeDisplay = glyphComponent.getElementsByClassName("codeDisplay")[0];
+      codeDisplay.appendChild(
+        document.createTextNode("0x"+(i.toString(16).padStart(4,"0")))
+      );
+
+      gc.appendChild(glyphComponent);
+
+    }
+  }
+
+  populateGlyphs();
+  
 })();
