@@ -22,10 +22,11 @@ main {
   font-size: 32pt;
 }
 
-.arialGlyphDisplay {
+.glyphTitleDisplay {
   font-family: Arial, sans-serif;
-  font-size: 12pt;
+  font-size: 10pt;
   color: grey;
+  font-weight: 100;
 }
 
 .codeDisplay {

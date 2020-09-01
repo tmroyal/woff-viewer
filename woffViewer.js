@@ -2,38 +2,21 @@
   var dropArea = document.getElementById("dropArea");
   var reader = new FileReader();
   var font;
+  var unicodeData;
 
-  reader.addEventListener("load", (f)=>{
-    font = new FontFace("loadedFont", 'url('+reader.result+')');
-    font.load().then(()=>{
-      document.fonts.add(font);
-      clearGlyphContainer();
-      populateGlyphs();
-    });
+  fetch("unicode.json")
+  .then((resp)=>{
+    return resp.json();
+  })
+  .then((data)=>{
+    unicodeData = data;
+    setupEventListeners();
+    populateGlyphs();
   });
-
-  dropArea.addEventListener("dragover", (e)=>{
-    dropArea.className = "dropArea2"
-    e.preventDefault();
-  }, false);
-
-  dropArea.addEventListener("drop", (e)=>{
-    e.preventDefault();
-    
-    if (e.dataTransfer.items) {
-      if (e.dataTransfer.items[0].kind === 'file') {
-        var file = e.dataTransfer.items[0].getAsFile();
-        reader.readAsDataURL(file);
-      }
-    } else {
-        reader.readAsDataURL(e.dataTransfer.files[0]);
-    }
-  }, false);
 
   var gc = document.getElementById("glyphContainer");
 
   function clearGlyphContainer(){
-
     while(gc.firstChild){
       gc.removeChild(gc.firstChild);
     }
@@ -44,14 +27,15 @@
   function populateGlyphs(){
     for (let i = 32; i < 256; i++){
       var glyphComponent = el.cloneNode(true);
-      var text = document.createTextNode(String.fromCodePoint(i));
+      var glyph = document.createTextNode(String.fromCodePoint(i));
       glyphComponent.id = "";
 
       var glyphDisplay = glyphComponent.getElementsByClassName("glyphDisplay")[0];
-      glyphDisplay.appendChild(text);
+      glyphDisplay.appendChild(glyph);
 
-      var aGlyphDisplay = glyphComponent.getElementsByClassName("arialGlyphDisplay")[0];
-      aGlyphDisplay.appendChild(text.cloneNode());
+      var glyphTitleDisplay = glyphComponent.getElementsByClassName("glyphTitleDisplay")[0];
+      var glyphTitle = document.createTextNode(unicodeData[i]);
+      glyphTitleDisplay.appendChild(glyphTitle);
 
       var codeDisplay = glyphComponent.getElementsByClassName("codeDisplay")[0];
       codeDisplay.appendChild(
@@ -63,6 +47,36 @@
     }
   }
 
-  populateGlyphs();
+  function setupEventListeners(){
+
+    reader.addEventListener("load", (f)=>{
+      font = new FontFace("loadedFont", 'url('+reader.result+')');
+      font.load().then(()=>{
+        document.fonts.add(font);
+        clearGlyphContainer();
+        populateGlyphs();
+      });
+    });
+
+    dropArea.addEventListener("dragover", (e)=>{
+      dropArea.className = "dropArea2"
+      e.preventDefault();
+    }, false);
+
+    dropArea.addEventListener("drop", (e)=>{
+      e.preventDefault();
+      
+      if (e.dataTransfer.items) {
+        if (e.dataTransfer.items[0].kind === 'file') {
+          var file = e.dataTransfer.items[0].getAsFile();
+          reader.readAsDataURL(file);
+        }
+      } else {
+          reader.readAsDataURL(e.dataTransfer.files[0]);
+      }
+    }, false);
+  }
+
+
   
 })();
