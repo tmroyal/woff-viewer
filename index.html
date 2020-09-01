@@ -12,14 +12,21 @@
       <span id="fontName">Drop file here</span>
     </div> 
 
+    <div id="rangeSet">
+      <label for"lo_code">Low</label>
+      <input type="number" min="0" step="1" name="lo_code" disabled></input>
+      <label for="hi_code">High</label>
+      <input type="number" min="0" step="1" name="hi_code" disabled></input>
+    </div>
+
     <div id="glyphContainer">
     </div>
 
     <div class="glyphDisplayBox" id="glyphTemplate">
       <div class="glyphDisplay">
       </div>
-      <div class="glyphTitleDisplay"></div>
       <div class="codeDisplay"></div>
+      <div class="glyphTitleDisplay"></div>
     </div>
   </main>
   <script src="woffViewer.js"></script>

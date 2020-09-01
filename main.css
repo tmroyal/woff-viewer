@@ -8,6 +8,18 @@ main {
   width: 100%;
 }
 
+#rangeSet {
+  margin: 0 auto;
+  width: 50%;
+  padding: 1em;
+  text-align: center;
+}
+
+#rangeSet input {
+  margin: 0;
+  padding: 0;
+}
+
 .glyphDisplayBox {
   border: 1px solid black;
   display: inline-block;
@@ -20,6 +32,7 @@ main {
 .glyphDisplay {
   font-family: loadedFont, sans-serif;
   font-size: 32pt;
+  min-height: 50px;
 }
 
 .glyphTitleDisplay {
@@ -27,6 +40,8 @@ main {
   font-size: 10pt;
   color: grey;
   font-weight: 100;
+  min-height: 25pt;
+  vertical-align: text-bottom;
 }
 
 .codeDisplay {
@@ -42,19 +57,9 @@ main {
 }
 
 #dropArea {
-  display: block;
   width: 50%;
   margin: 0 auto;
   padding: 5% 0;
   text-align: center;
   border: 1px dashed black;
-}
-
-#dropArea2 {
-  display: block;
-  width: 50%;
-  margin: 0 auto;
-  padding: 5% 0;
-  text-align: center;
-
 }

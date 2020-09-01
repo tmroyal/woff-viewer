@@ -3,6 +3,13 @@
   var reader = new FileReader();
   var font;
   var unicodeData;
+  var range = {
+    lo: 32,
+    hi: 128
+  };
+
+  var loRangeInput = document.getElementsByName("lo_code")[0];
+  var hiRangeInput = document.getElementsByName("hi_code")[0];
 
   fetch("unicode.json")
   .then((resp)=>{
@@ -25,7 +32,8 @@
   var el = document.getElementById("glyphTemplate");
 
   function populateGlyphs(){
-    for (let i = 32; i < 256; i++){
+    for (let i = range.lo; i < range.hi; i++){
+      console.log(i);
       var glyphComponent = el.cloneNode(true);
       var glyph = document.createTextNode(String.fromCodePoint(i));
       glyphComponent.id = "";
@@ -48,6 +56,24 @@
   }
 
   function setupEventListeners(){
+    loRangeInput.removeAttribute("disabled");
+    hiRangeInput.removeAttribute("disabled");
+
+    function updateRange(){
+      var lowValue = loRangeInput.value;
+      var highValue = hiRangeInput.value;
+
+      range.lo = parseInt(lowValue);
+      range.hi = parseInt(highValue);
+
+      clearGlyphContainer();
+      populateGlyphs();
+    }
+
+
+    loRangeInput.addEventListener("input", updateRange);
+    hiRangeInput.addEventListener("input", updateRange);
+
 
     reader.addEventListener("load", (f)=>{
       font = new FontFace("loadedFont", 'url('+reader.result+')');
@@ -59,7 +85,7 @@
     });
 
     dropArea.addEventListener("dragover", (e)=>{
-      dropArea.className = "dropArea2"
+      //dropArea.className = "dropArea2"
       e.preventDefault();
     }, false);
 
@@ -76,7 +102,5 @@
       }
     }, false);
   }
-
-
   
 })();
