@@ -11,7 +11,7 @@
   var loRangeInput = document.getElementsByName("lo_code")[0];
   var hiRangeInput = document.getElementsByName("hi_code")[0];
 
-  fetch("unicode.json")
+  fetch("unicodeNames.json")
   .then((resp)=>{
     return resp.json();
   })

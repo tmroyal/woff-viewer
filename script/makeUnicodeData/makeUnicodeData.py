@@ -19,5 +19,5 @@ with open('UnicodeData.txt') as f:
     else:
       output[str(code)] = d1
 
-with open('../../unicode.json','w') as f:
+with open('../../unicodeNames.json','w') as f:
   f.write(json.dumps(output, separators=(',', ':')))
