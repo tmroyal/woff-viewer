@@ -3,9 +3,11 @@
   var reader = new FileReader();
   var font;
   var unicodeData;
+  var unicodeRanges;
+
   var range = {
     lo: 32,
-    hi: 128
+    hi: 127
   };
 
   var loRangeInput = document.getElementsByName("lo_code")[0];
@@ -21,6 +23,15 @@
     populateGlyphs();
   });
 
+  fetch("unicodeRanges.json")
+  .then((resp)=>{
+    return (resp.json());
+  })
+  .then((data)=>{
+    unicodeRanges = data;
+    setupRangeSelector();
+  });
+
   var gc = document.getElementById("glyphContainer");
 
   function clearGlyphContainer(){
@@ -33,7 +44,6 @@
 
   function populateGlyphs(){
     for (let i = range.lo; i < range.hi; i++){
-      console.log(i);
       var glyphComponent = el.cloneNode(true);
       var glyph = document.createTextNode(String.fromCodePoint(i));
       glyphComponent.id = "";
@@ -47,12 +57,31 @@
 
       var codeDisplay = glyphComponent.getElementsByClassName("codeDisplay")[0];
       codeDisplay.appendChild(
-        document.createTextNode("0x"+(i.toString(16).padStart(4,"0")))
+        document.createTextNode("U+"+(i.toString(16).padStart(4,"0")))
       );
 
       gc.appendChild(glyphComponent);
 
     }
+  }
+
+  function setupRangeSelector(){
+    var rangeSelector = document.getElementsByName("rangeSelector")[0];
+    Object.keys(unicodeRanges).forEach((rangeName)=>{
+      var option = document.createElement("option");
+      option.appendChild(document.createTextNode(rangeName));
+      option.value = rangeName;
+      rangeSelector.appendChild(option);
+    });
+
+    rangeSelector.addEventListener("change", (e)=>{
+      var selectedRange = unicodeRanges[e.target.value];
+      range.lo = selectedRange.lo;
+      range.hi = selectedRange.hi;
+
+      clearGlyphContainer();
+      populateGlyphs();
+    });
   }
 
   function setupEventListeners(){
