@@ -5,21 +5,25 @@
   var font;
   var unicodeData;
   var unicodeRanges;
-  var searchTerm = "";
+  var rangeSearchTerm = "";
+  var unicodeSearchTerm = "";
   var filename = "Arial";
 
   var MODE = {
     RANGE: 0,
-    SELECTED_CODES: 1
+    SEARCHTERM: 1
   }
+
+  var selectedCodes = [];
 
   var range = {
     lo: 32,
     hi: 127
   };
 
-  var selectedCodes = [];
-  var displayMode = MODE.RANGE;
+  //var displayMode = MODE.RANGE;
+  var displayMode = MODE.SEARCHTERM;
+
 
   var loRangeInput = document.getElementsByName("lo_code")[0];
   var hiRangeInput = document.getElementsByName("hi_code")[0];
@@ -75,7 +79,7 @@
         populateSingleGlyph(i);
       }
     } else {
-      selectedCodes.forEach(code,()=>{
+      selectedCodes.forEach((code)=>{
         populateSingleGlyph(code);
       });
     }
@@ -95,7 +99,7 @@
 
       var codeDisplay = glyphComponent.getElementsByClassName("codeDisplay")[0];
       codeDisplay.appendChild(
-        document.createTextNode("U+"+(i.toString(16).padStart(4,"0")))
+        document.createTextNode("U+"+(parseInt(i).toString(16).toUpperCase().padStart(4,"0")))
       );
 
       gc.appendChild(glyphComponent);
@@ -106,9 +110,9 @@
 
     var keys = Object.keys(unicodeRanges);
 
-    if (searchTerm.length > 0){
+    if (rangeSearchTerm.length > 0){
       keys = keys.filter((str)=>{
-        return str.toLowerCase().includes(searchTerm.toLowerCase());
+        return str.toLowerCase().includes(rangeSearchTerm.toLowerCase());
       });
     }
 
@@ -134,16 +138,46 @@
     }
   }
 
+  function doSearch(term){
+    selectedCodes = [];
+    //"iterate over all (?) descriptions to find things that match"
+    for (const [key,value] of Object.entries(unicodeData)){
+      if (value.toLowerCase().includes(term.toLowerCase())){
+        selectedCodes.push(key);
+      }
+    }
+    clearGlyphContainer();
+    populateGlyphs()
+  }
+
+  function clearSearch(){
+    selectedCodes = [];
+
+    clearGlyphContainer();
+    populateGlyphs()
+  }
+
   function setupRangeSelector(){
     var rangeSelector = document.getElementsByName("rangeSelector")[0];
     var rangeSelectorSearch = document.getElementsByName("rangeSelectorSearch")[0];
+    var codeSearch = document.getElementsByName("nameSearch")[0];
 
     setRanges();
 
     rangeSelectorSearch.removeAttribute("disabled");
+    codeSearch.removeAttribute("disabled");
+
+    codeSearch.addEventListener("keyup", (e)=>{
+      e.preventDefault();
+      if (e.target.value.length > 1){
+        doSearch(e.target.value);
+      } else {
+        clearSearch();
+      }
+    });
 
     rangeSelectorSearch.addEventListener("keyup", (e)=>{
-      searchTerm = e.target.value;
+      rangeSearchTerm = e.target.value;
       setRanges();
     });
 
@@ -155,8 +189,6 @@
       clearGlyphContainer();
       populateGlyphs();
     });
-
-
   }
 
   function setupEventListeners(){
@@ -187,7 +219,6 @@
     });
 
     dropArea.addEventListener("dragover", (e)=>{
-      //dropArea.className = "dropArea2"
       e.preventDefault();
     }, false);
 
