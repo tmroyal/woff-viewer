@@ -85,3 +85,7 @@ nav#backToTop a {
 nav#backToTop:hover a {
   color: rgba(0,0,0,0.9);
 }
+
+.hidden {
+  display: none;
+}

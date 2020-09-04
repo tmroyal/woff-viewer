@@ -13,6 +13,19 @@
   var loRangeInput = document.getElementsByName("lo_code")[0];
   var hiRangeInput = document.getElementsByName("hi_code")[0];
 
+  function showBackToTop(){
+    document.getElementById("backToTop").classList.remove("hidden");
+    window.removeEventListener("scroll", showBackToTop);
+  }
+
+  function navBackToTop(){
+    window.scrollTo(0,0);
+    document.getElementById("backToTop").classList.add("hidden");
+    window.addEventListener("scroll", showBackToTop);
+  }
+
+  navBackToTop();
+
   fetch("unicodeNames.json")
   .then((resp)=>{
     return resp.json();
