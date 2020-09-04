@@ -98,24 +98,6 @@
   }
 
   function setupEventListeners(){
-    loRangeInput.removeAttribute("disabled");
-    hiRangeInput.removeAttribute("disabled");
-
-    function updateRange(){
-      var lowValue = loRangeInput.value;
-      var highValue = hiRangeInput.value;
-
-      range.lo = parseInt(lowValue);
-      range.hi = parseInt(highValue);
-
-      clearGlyphContainer();
-      populateGlyphs();
-    }
-
-
-    loRangeInput.addEventListener("input", updateRange);
-    hiRangeInput.addEventListener("input", updateRange);
-
 
     reader.addEventListener("load", (f)=>{
       font = new FontFace("loadedFont", 'url('+reader.result+')');
