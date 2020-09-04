@@ -105,7 +105,7 @@
 
     if (searchTerm.length > 0){
       keys = keys.filter((str)=>{
-        return str.includes(searchTerm);
+        return str.toLowerCase().includes(searchTerm.toLowerCase());
       });
     }
 
