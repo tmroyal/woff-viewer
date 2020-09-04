@@ -14,6 +14,7 @@
     lo: 32,
     hi: 127
   };
+
   var selectedCodes = [];
   var displayMode = MODE.RANGE;
 
