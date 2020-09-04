@@ -42,6 +42,8 @@
   })
   .then((data)=>{
     unicodeRanges = data;
+    console.log(data);
+    data.ASCII = {lo:32, hi:127};
     setupRangeSelector();
   });
 
@@ -79,8 +81,13 @@
   }
 
   function setupRangeSelector(){
+    // get this out of the setupRangeSelector function
     var rangeSelector = document.getElementsByName("rangeSelector")[0];
-    Object.keys(unicodeRanges).forEach((rangeName)=>{
+
+    var keys = Object.keys(unicodeRanges);
+    keys.sort();
+
+    keys.forEach((rangeName)=>{
       var option = document.createElement("option");
       option.appendChild(document.createTextNode(rangeName));
       option.value = rangeName;
