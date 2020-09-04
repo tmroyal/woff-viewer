@@ -76,13 +76,13 @@ nav#backToTop:hover {
   background-color: rgba(255,255,255,0.9);
 }
 
-nav#backToTop a {
+nav#backToTop > span {
   text-decoration: none;
   border-bottom: 1px grey dashed;
   color: rgba(0,0,0,0.5);
 }
 
-nav#backToTop:hover a {
+nav#backToTop:hover > span {
   color: rgba(0,0,0,0.9);
 }
 

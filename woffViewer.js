@@ -28,13 +28,16 @@
     window.removeEventListener("scroll", showBackToTop);
   }
 
-  function navBackToTop(){
+  function navBackToTop(e){
+    console.log(e);
     window.scrollTo(0,0);
     document.getElementById("backToTop").classList.add("hidden");
     window.addEventListener("scroll", showBackToTop);
   }
 
   navBackToTop();
+
+  document.getElementById("backToTop").addEventListener("click", navBackToTop)
 
   fetch("unicodeNames.json")
   .then((resp)=>{
