@@ -5,10 +5,17 @@
   var unicodeData;
   var unicodeRanges;
 
+  var MODE = {
+    RANGE: 0,
+    SELECTED_CODES: 1
+  }
+
   var range = {
     lo: 32,
     hi: 127
   };
+  var selectedCodes = [];
+  var displayMode = MODE.RANGE;
 
   var loRangeInput = document.getElementsByName("lo_code")[0];
   var hiRangeInput = document.getElementsByName("hi_code")[0];
@@ -42,7 +49,6 @@
   })
   .then((data)=>{
     unicodeRanges = data;
-    console.log(data);
     data.ASCII = {lo:32, hi:127};
     setupRangeSelector();
   });
@@ -58,7 +64,18 @@
   var el = document.getElementById("glyphTemplate");
 
   function populateGlyphs(){
-    for (let i = range.lo; i < range.hi; i++){
+    if (displayMode == MODE.RANGE){
+      for (let i = range.lo; i < range.hi; i++){
+        populateSingleGlyph(i);
+      }
+    } else {
+      selectedCodes.forEach(code,()=>{
+        populateSingleGlyph(code);
+      });
+    }
+  }
+
+  function populateSingleGlyph(i){
       var glyphComponent = el.cloneNode(true);
       var glyph = document.createTextNode(String.fromCodePoint(i));
       glyphComponent.id = "";
@@ -76,8 +93,6 @@
       );
 
       gc.appendChild(glyphComponent);
-
-    }
   }
 
   function setupRangeSelector(){
