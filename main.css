@@ -89,3 +89,7 @@ nav#backToTop:hover > span {
 .hidden {
   display: none;
 }
+
+.selected {
+  color: red;
+}

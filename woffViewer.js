@@ -1,12 +1,25 @@
+/*
+This is code for a woff/woff2 viewer.
+It was meant as a quick solution to a problem i had.
+Therefore, the code is quick and dirty. 
+This is licensed under the MIT license, 
+so if you want to make a version of this
+whose code doesn't smell, feel free.
+*/
+
 (function WoffViewer(){
+
   var dropArea = document.getElementById("dropArea");
   var inputElement = document.getElementsByName("fileDiag")[0];
+  var unicodeRangeMenu = document.getElementById("unicodeRangeMenuFunc");
+  var unicodeNameMenu = document.getElementById("unicodeNameMenuFunc");
+  var unicodeRangePanel = document.getElementById("rangeSelector");
+  var unicodeNamePanel = document.getElementById("nameSearch");
   var reader = new FileReader();
   var font;
   var unicodeData;
   var unicodeRanges;
   var rangeSearchTerm = "";
-  var unicodeSearchTerm = "";
   var filename = "Arial";
 
   var MODE = {
@@ -21,8 +34,7 @@
     hi: 127
   };
 
-  //var displayMode = MODE.RANGE;
-  var displayMode = MODE.SEARCHTERM;
+  var displayMode = MODE.RANGE;
 
 
   var loRangeInput = document.getElementsByName("lo_code")[0];
@@ -208,9 +220,33 @@
         loadedFont.appendChild(document.createTextNode(`Font: ${filename}`));
       })
       .catch(()=>{
-        console.log(loadedFont);
         loadedFont.appendChild(document.createTextNode("Error: not a font"));
       });
+    });
+
+    unicodeNameMenu.addEventListener("click", ()=>{
+      unicodeNameMenu.classList.add("selected");
+      unicodeRangeMenu.classList.remove("selected");
+
+      unicodeRangePanel.classList.add("hidden");
+      unicodeNamePanel.classList.remove("hidden");
+
+      displayMode = MODE.SEARCHTERM;
+      clearGlyphContainer();
+      populateGlyphs();
+    });
+
+    unicodeRangeMenu.addEventListener("click", ()=>{
+      unicodeNameMenu.classList.remove("selected");
+      unicodeRangeMenu.classList.add("selected");
+
+      unicodeRangePanel.classList.remove("hidden");
+      unicodeNamePanel.classList.add("hidden");
+
+      displayMode = MODE.RANGE;
+
+      clearGlyphContainer();
+      populateGlyphs();
     });
 
     inputElement.addEventListener("change", (e)=>{
