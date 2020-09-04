@@ -5,6 +5,7 @@
   var unicodeData;
   var unicodeRanges;
   var searchTerm = "";
+  var filename = "Arial";
 
   var MODE = {
     RANGE: 0,
@@ -158,11 +159,22 @@
   function setupEventListeners(){
 
     reader.addEventListener("load", (f)=>{
+      var loadedFont = document.getElementById("loadedFont");
+      while (loadedFont.firstChild){ 
+        loadedFont.removeChild(loadedFont.firstChild);
+      }
+
       font = new FontFace("loadedFont", 'url('+reader.result+')');
+
       font.load().then(()=>{
         document.fonts.add(font);
         clearGlyphContainer();
         populateGlyphs();
+        loadedFont.appendChild(document.createTextNode(`Font: ${filename}`));
+      })
+      .catch(()=>{
+        console.log(loadedFont);
+        loadedFont.appendChild(document.createTextNode("Error: not a font"));
       });
     });
 
@@ -176,10 +188,13 @@
       
       if (e.dataTransfer.items) {
         if (e.dataTransfer.items[0].kind === 'file') {
-          var file = e.dataTransfer.items[0].getAsFile();
+          var file;
+          file = e.dataTransfer.items[0].getAsFile();
+          filename = file.name;
           reader.readAsDataURL(file);
         }
       } else {
+          filename = e.dataTransfer.files[0].name;
           reader.readAsDataURL(e.dataTransfer.files[0]);
       }
     }, false);
