@@ -4,6 +4,7 @@
   var font;
   var unicodeData;
   var unicodeRanges;
+  var searchTerm = "";
 
   var MODE = {
     RANGE: 0,
@@ -96,18 +97,50 @@
       gc.appendChild(glyphComponent);
   }
 
-  function setupRangeSelector(){
-    // get this out of the setupRangeSelector function
+  function setRanges(){
     var rangeSelector = document.getElementsByName("rangeSelector")[0];
 
     var keys = Object.keys(unicodeRanges);
+
+    if (searchTerm.length > 0){
+      keys = keys.filter((str)=>{
+        return str.includes(searchTerm);
+      });
+    }
+
     keys.sort();
+
+    // seems fast enough
+    rangeSelector.innerHTML = "";
 
     keys.forEach((rangeName)=>{
       var option = document.createElement("option");
       option.appendChild(document.createTextNode(rangeName));
       option.value = rangeName;
       rangeSelector.appendChild(option);
+    });
+
+    if (keys.length > 0){
+      rangeSelector.dispatchEvent(new Event('change'));
+    } else {
+      range.lo = -1;
+      range.hi = -1;
+      clearGlyphContainer();
+      populateGlyphs();
+    }
+  }
+
+  function setupRangeSelector(){
+    var rangeSelector = document.getElementsByName("rangeSelector")[0];
+    var rangeSelectorSearch = document.getElementsByName("rangeSelectorSearch")[0];
+
+    setRanges();
+
+    rangeSelectorSearch.removeAttribute("disabled");
+
+    rangeSelectorSearch.addEventListener("keyup", (e)=>{
+      searchTerm = e.target.value;
+      setRanges();
     });
 
     rangeSelector.addEventListener("change", (e)=>{
@@ -118,6 +151,8 @@
       clearGlyphContainer();
       populateGlyphs();
     });
+
+
   }
 
   function setupEventListeners(){
