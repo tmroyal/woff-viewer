@@ -1,5 +1,6 @@
 (function WoffViewer(){
   var dropArea = document.getElementById("dropArea");
+  var inputElement = document.getElementsByName("fileDiag")[0];
   var reader = new FileReader();
   var font;
   var unicodeData;
@@ -29,7 +30,6 @@
   }
 
   function navBackToTop(e){
-    console.log(e);
     window.scrollTo(0,0);
     document.getElementById("backToTop").classList.add("hidden");
     window.addEventListener("scroll", showBackToTop);
@@ -179,6 +179,11 @@
         console.log(loadedFont);
         loadedFont.appendChild(document.createTextNode("Error: not a font"));
       });
+    });
+
+    inputElement.addEventListener("change", (e)=>{
+      filename = e.target.files[0].name;
+      reader.readAsDataURL(e.target.files[0]);
     });
 
     dropArea.addEventListener("dragover", (e)=>{
