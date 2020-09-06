@@ -1,11 +1,56 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  padding-top: 2%;
 }
 
 main {
   width: 100%;
+}
+
+header {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2% 5% 5%;
+  border: 1px solid rgb(180, 191, 209);
+  background-color: rgb(216, 225, 240);
+  border-bottom: 4px solid rgb(180,191,209);
+  box-shadow: 3px 3px 5px rgba(8,8,15, 0.1);
+}
+
+header h1 {
+  font-weight: 100;
+}
+
+#dropArea {
+  padding: 5% 0;
+  border: 1px dashed black;
+  margin-top: 2%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 4px rgba(8,8,15, 0.9);
+}
+
+#dropAreaUI {
+  text-align: left;
+  width: 30%;
+  margin: 0 auto;
+}
+
+#dropAreaUI #loadedFont {
+  padding-top: 1em;
+}
+
+#dropAreaUI > * {
+  padding: 0.1em;
+}
+
+#loadedFont {
+  font-size: 120%;
 }
 
 #rangeSet {
@@ -56,13 +101,6 @@ main {
   display: none;
 }
 
-#dropArea {
-  width: 50%;
-  margin: 0 auto;
-  padding: 5% 0;
-  text-align: center;
-  border: 1px dashed black;
-}
 
 nav#backToTop {
   background-color: rgba(255,255,255,0.5);

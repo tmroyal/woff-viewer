@@ -7,12 +7,20 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <main>
+  <header>
+    <h1>Woff Webfont Viewer</h1>
+
     <div id="dropArea">
-      <p id="fontName">Drop file here</p>
-      <p id="loadedFont">Loaded Font: Arial</p>
-      <input type="file" name="fileDiag" accept=".woff,.woff2">
+      <div id="dropAreaUI">
+        <p>Drag/Drop .woff file or</p>
+        <input type="file" name="fileDiag" accept=".woff,.woff2">
+
+        <p id="loadedFont">Loaded Font: Arial</p>
+      </div>
     </div> 
+  </header>
+
+  <main>
 
     <ul>
       <li id="unicodeRangeMenuFunc" class="selected">Display By Unicode Range</li>
