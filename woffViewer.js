@@ -71,7 +71,7 @@ whose code doesn't smell, feel free.
   })
   .then((data)=>{
     unicodeRanges = data;
-    data.ASCII = {lo:32, hi:127};
+    data['ASCII (Non-control)'] = {lo:32, hi:127};
     setupRangeSelector();
   });
 
