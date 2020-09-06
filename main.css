@@ -101,31 +101,32 @@ select[name="rangeSelector"]{
   width: 40%;
 }
 
-#rangeSet {
+#glyphContainer {
+  width: 60%;
   margin: 0 auto;
-  width: 50%;
-  padding: 1em;
-  text-align: center;
-}
-
-#rangeSet input {
-  margin: 0;
-  padding: 0;
+  padding: 2% 5% 3%;
+  border: 1px solid rgb(180, 191, 209);
+  background-color: rgb(216, 225, 240);
+  border-bottom: 4px solid rgb(180,191,209);
+  box-shadow: 3px 3px 5px rgba(8,8,15, 0.1);
 }
 
 .glyphDisplayBox {
-  border: 1px solid black;
   display: inline-block;
-  padding: 2em;
-  width: 10%;
-  min-height: 100px;
-  margin: 0.5em;
+  padding: 1em;
+  width: 15%;
+  min-height: 10em;
+  margin: 0.2em;
+  background-color: white;
+  box-shadow: 2px 2px 4px rgb(0,0,0,0.5);
+  border-left: 1px solid lightgrey;
+  vertical-align: bottom;
 }
 
 .glyphDisplay {
   font-family: loadedFont, sans-serif;
   font-size: 32pt;
-  min-height: 50px;
+  min-height: 60pt;
 }
 
 .glyphTitleDisplay {
@@ -139,7 +140,7 @@ select[name="rangeSelector"]{
 
 .codeDisplay {
   font-family: Arial, sans-serif;
-  font-size: 10pt;
+  font-size: 12pt;
   text-decoration: underline;
   color: slategrey;
 
