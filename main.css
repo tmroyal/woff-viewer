@@ -13,6 +13,10 @@ main {
   width: 100%;
 }
 
+#mb {
+  font-size: 80%;
+}
+
 header {
   width: 60%;
   margin: 0 auto;
