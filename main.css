@@ -6,6 +6,7 @@
 
 body {
   padding-top: 2%;
+  background: rgb(83, 93, 114);
 }
 
 main {
@@ -13,10 +14,10 @@ main {
 }
 
 header {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   text-align: center;
-  padding: 2% 5% 5%;
+  padding: 2% 5% 3%;
   border: 1px solid rgb(180, 191, 209);
   background-color: rgb(216, 225, 240);
   border-bottom: 4px solid rgb(180,191,209);
@@ -51,6 +52,53 @@ header h1 {
 
 #loadedFont {
   font-size: 120%;
+}
+
+
+#searchComponent {
+  width: 60%;
+  margin: 1em auto;
+  text-align: center;
+  box-shadow: 3px 3px 5px rgba(8,8,15, 0.1);
+  background-color: rgb(216, 225, 240);
+  padding: 0.5em 5% 1.5em;
+}
+
+
+#searchComponent ul {
+  list-style: none;
+}
+
+#searchComponent li {
+  display: inline-block;
+  background-color: rgb(255,255,255);
+  margin: 1em 0;
+  padding: 1em;
+  font-weight: 100;
+  box-shadow: 2px 2px 4px rgb(0,0,0,0.1);
+}
+
+#searchComponent li:hover, #searchComponent li:focus {
+  background-color: rgb(211, 226, 255);
+  cursor: pointer;
+}
+
+#searchComponent li.selected {
+ background-color: rgb(58, 73, 116);
+ color: white;
+}
+
+input[name="rangeSelectorSearch"], input[name="nameSearch"]{
+  background: white;
+  font-size: 105%;
+  padding: 0.2em;
+  border: 2px solid rgb(160, 178, 212);
+}
+
+select[name="rangeSelector"]{
+  font-size: 105%;
+  padding: 0.2em;
+  width: 40%;
 }
 
 #rangeSet {
@@ -103,11 +151,11 @@ header h1 {
 
 
 nav#backToTop {
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.2);
   position: fixed;
   bottom: 2em;
   left: 3em;
-  padding: 1em 1em;
+  padding: 1em 1.5em;
 }
 
 nav#backToTop:hover {
@@ -117,7 +165,7 @@ nav#backToTop:hover {
 nav#backToTop > span {
   text-decoration: none;
   border-bottom: 1px grey dashed;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0,0,0,0.6);
 }
 
 nav#backToTop:hover > span {
@@ -126,8 +174,4 @@ nav#backToTop:hover > span {
 
 .hidden {
   display: none;
-}
-
-.selected {
-  color: red;
 }

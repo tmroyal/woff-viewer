@@ -12,7 +12,7 @@
 
     <div id="dropArea">
       <div id="dropAreaUI">
-        <p>Drag/Drop .woff file or</p>
+        <p>Drag/Drop .woff file</p>
         <input type="file" name="fileDiag" accept=".woff,.woff2">
 
         <p id="loadedFont">Loaded Font: Arial</p>
@@ -22,18 +22,20 @@
 
   <main>
 
-    <ul>
-      <li id="unicodeRangeMenuFunc" class="selected">Display By Unicode Range</li>
-      <li id="unicodeNameMenuFunc">Search By Unicode Name</li>
-    </ul>
+    <div id="searchComponent">
+      <ul>
+        <li id="unicodeRangeMenuFunc" class="selected">Filter By Unicode Range</li>
+        <li id="unicodeNameMenuFunc">Search By Unicode Name</li>
+      </ul>
 
-    <div id="rangeSelector">
-      <input name="rangeSelectorSearch" type="text" disabled value=""></input>
-      <select name="rangeSelector"></select>
-    </div>
+      <div id="rangeSelector">
+        <input name="rangeSelectorSearch" type="text" disabled value="" placeholder="Search Unicode Range"></input>
+        <select name="rangeSelector"></select>
+      </div>
 
-    <div id="nameSearch" class="hidden">
-      <input name="nameSearch" type="text" disabled></input>
+      <div id="nameSearch" class="hidden">
+        <input name="nameSearch" type="text" disabled placeholder="Search Glyph Name"></input>
+      </div>
     </div>
 
     <div id="glyphContainer">
